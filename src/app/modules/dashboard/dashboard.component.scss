@@ -1,0 +1,29 @@
+img {
+  height: auto;
+  width: 100px;
+  // height: 100px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 170px;
+  width: 100px;
+}
+
+.card-top {
+  
+}
