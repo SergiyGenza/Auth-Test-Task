@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/common/services/api.service';
 
 @Component({
@@ -7,31 +7,23 @@ import { ApiService } from 'src/app/common/services/api.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnDestroy {
   data: Observable<any>
+  graphData!: any;
+  subscription!: Subscription;
 
   constructor(private apiService: ApiService) {
     this.data = apiService.getDashboard();
-    // this.data = apiService.getDashboard('GET', 'userassessments');
-
   }
 
-  ngOnInit(): void {
-    this.requst();
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
-  requst() {
-    // this.apiService.getDashboard('GET', 'userassessments').subscribe(
-    this.apiService.getDashboard().subscribe(
-      res => {
-        console.log(res);
-      }
-    )
+  public getGraph(id: number): void {
+    this.subscription = this.apiService.getUserAssessmentGraph(id)
+      .subscribe(res => this.graphData = res);
   }
-
-  getGraph(id: number) {
-    this.apiService.getUserAssessmentGraph(id).subscribe(res => console.log(res)
-    )
-  }
-
 }
