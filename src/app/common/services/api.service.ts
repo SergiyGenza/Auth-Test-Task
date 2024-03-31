@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
 const URL: string = 'https://user-assessment-api.vercel.app/api/';
@@ -8,10 +9,12 @@ const URL: string = 'https://user-assessment-api.vercel.app/api/';
   providedIn: 'root'
 })
 export class ApiService {
-
   private _token: string = '';
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
     this.token = localStorage.getItem('auth_token') ?? '';
   }
 
@@ -20,12 +23,24 @@ export class ApiService {
   }
 
   set token(value: string) {
-    this._token = value;
-    localStorage.setItem('auth_token', value);
+    if (value) {
+      this._token = value;
+      localStorage.setItem('auth_token', value);
+    }
+  }
+
+  public isAuthenticated(): boolean {
+    return !!this.token;
+  }
+  public signOut(): void {
+    localStorage.removeItem("auth_token");
   }
 
   public login(email: string, password: string): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(`${URL}login`, { email, password }).pipe(tap(res => this.token = res.token));
+    return this.http.post<{ token: string }>(`${URL}login`, { email, password })
+      .pipe(tap(res => {
+        this.token = res.token, this.router.navigate(['/dashboard'])
+      }));
   }
 
   public getDashboard(): Observable<Object> {

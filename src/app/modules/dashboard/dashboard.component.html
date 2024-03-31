@@ -1,4 +1,7 @@
 <ng-container *ngIf="data | async let data">
+  <div class="head">
+    <button (click)="signOut()">Sign Out</button>
+  </div>
   <h2>Dashboard</h2>
   <div class="content">
     <div class="card-list">
