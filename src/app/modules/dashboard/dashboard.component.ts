@@ -10,11 +10,12 @@ import { ApiService } from 'src/app/common/services/api.service';
 export class DashboardComponent implements OnDestroy {
   data: Observable<any>
   graphData!: any;
-  subscription!: Subscription | undefined
+  subscription!: Subscription | undefined;
+  isAdmin: boolean;
 
-  token!: boolean;
   constructor(private apiService: ApiService) {
-    this.data = apiService.getDashboard()!;
+    this.data = apiService.getDashboard();
+    this.isAdmin = apiService.isAdmin();
   }
 
   ngOnDestroy(): void {
@@ -24,11 +25,11 @@ export class DashboardComponent implements OnDestroy {
   }
 
   public getGraph(id: number): void {
-    this.subscription = this.apiService.getUserAssessmentGraph(id)
+    this.subscription = this.apiService.getUsersAssessmentGraph(id)
       .subscribe(res => this.graphData = res);
   }
 
-  public signOut(): void {
+  public onSignOut(): void {
     this.apiService.signOut();
   }
 }

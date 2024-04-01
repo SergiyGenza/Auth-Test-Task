@@ -1,20 +1,23 @@
 <ng-container *ngIf="data | async let data">
   <div class="head">
-    <button (click)="signOut()">Sign Out</button>
+    <button *ngIf="isAdmin" routerLink="admins-dashboard">Admin Section</button>
+    <button (click)="onSignOut()">Sign Out</button>
   </div>
-  <h2>Dashboard</h2>
-  <div class="content">
-    <div class="card-list">
-      <div class="card" *ngFor="let item of data">
-        <div class="card-top">
-          {{item.name}}
-          <img src="{{item.image_url}}" alt="">
+  <div class="wrapper">
+    <h2>Dashboard</h2>
+    <div class="dashboard">
+      <div class="card-list">
+        <div class="card" *ngFor="let item of data">
+          <div class="card-top">
+            {{item.name}}
+            <img src="{{item.image_url}}" alt="">
+          </div>
+          <button (click)="getGraph(item.id)">open</button>
         </div>
-        <button (click)="getGraph(item.id)">open</button>
       </div>
-    </div>
-    <div class="graph">
-      <app-graph *ngIf="graphData" [graphData]="graphData"></app-graph>
+      <div class="graph">
+        <app-graph *ngIf="graphData" [graphData]="graphData"></app-graph>
+      </div>
     </div>
   </div>
 </ng-container>
