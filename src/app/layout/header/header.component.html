@@ -1,7 +1,13 @@
 <div class="header-wrapper">
   <h2>{{url | title}}</h2>
-  <div class="btns-group">
-    <button type="button" class="btn btn-success" *ngIf="isAdmin" routerLink="dashboard/adminpanel">Admin Section</button>
+  <div class="btns-group" *ngIf="router.url != '/login'">
+    <button type="button" class="btn btn-success" *ngIf="isAdmin && router.url != '/dashboard/adminpanel'"
+      routerLink="dashboard/adminpanel">
+      AdminSection
+    </button>
+    <button type="button" class="btn btn-success" *ngIf="isAdmin && router.url != '/dashboard'" routerLink="dashboard">
+      Dashboard
+    </button>
     <button type="button" class="btn btn-danger" (click)="onSignOut()">Sign Out</button>
   </div>
 </div>

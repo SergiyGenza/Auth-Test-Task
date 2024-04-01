@@ -24,10 +24,20 @@ export class DashboardComponent implements OnDestroy {
 
   public getDataForGraph(id: number, title: string): void {
     this.subscription = this.apiService.getUsersAssessmentGraph(id)
-      .subscribe(res => {
-        this.graphData = {
-          data: res,
-          title: title
+      .subscribe({
+        next: (res) => {
+          this.graphData = {
+            data: res,
+            title: title
+          };
+        },
+        error: (error) => {
+          console.error('Error fetching graph data', error);
+          this.graphData = {
+            data: '',
+            error: 'Error fetching graph data',
+            title: title
+          }
         }
       });
   }

@@ -13,17 +13,25 @@ export class GraphComponent implements OnChanges {
   @Input() graphData!: any;
   title!: string;
   chart!: any;
+  isError: boolean = false
 
   constructor(private chartService: ChartService) { }
 
   ngOnChanges(): void {
-    this.createChart();
+    this.setData();
   }
 
-  private createChart(): void {
+  private setData(): void {
+    this.isError = false;
     this.title = this.graphData.title;
+
     if (this.chart) {
       this.chart.destroy();
+    }
+
+    if (!this.graphData.data) {
+      this.isError = true;
+      return
     }
     this.chart = new Chart("chart", this.chartService.createChart(this.graphData.data));
   }

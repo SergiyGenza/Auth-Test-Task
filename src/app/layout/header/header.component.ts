@@ -9,17 +9,17 @@ import { ApiService } from 'src/app/common/services/api.service';
 })
 export class HeaderComponent implements OnInit {
   url!: string;
-  isAdmin: boolean;
+  isAdmin: boolean = false;
+  isAuthorized: boolean = false;
 
   constructor(
-    private router: Router,
+    public router: Router,
     private apiService: ApiService
-  ) {
-    this.isAdmin = apiService.isAdmin();
-  }
+  ) { }
 
   ngOnInit(): void {
     this.getRoute();
+    this.getUser();
   }
 
   public onSignOut(): void {
@@ -28,7 +28,14 @@ export class HeaderComponent implements OnInit {
 
   private getRoute(): void {
     this.router.events.subscribe(() => {
-      this.url = this.router.url
+      this.url = this.router.url;
+    });
+  }
+
+  private getUser() {
+    this.apiService.user$.subscribe(user => {
+      this.isAuthorized = !!user;
+      this.isAdmin = user ? user.role === 'Admin' : false;
     });
   }
 }

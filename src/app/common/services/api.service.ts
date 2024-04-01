@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { UserProfile } from '../models/usersProfile.model';
 import { User } from '../models/user.model';
@@ -13,7 +13,7 @@ const URL: string = 'https://user-assessment-api.vercel.app/api/';
 })
 export class ApiService {
   private readonly USER_KEY = 'user';
-  private _user: User | null = null;
+  private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
   constructor(
     private http: HttpClient,
@@ -21,16 +21,20 @@ export class ApiService {
   ) {
     const userJson = sessionStorage.getItem(this.USER_KEY);
     if (userJson) {
-      this._user = JSON.parse(userJson);
+      this.userSubject.next(JSON.parse(userJson));
     }
   }
 
+  get user$(): Observable<User | null> {
+    return this.userSubject.asObservable();
+  }
+
   get user(): User | null {
-    return this._user;
+    return this.userSubject.value;
   }
 
   set user(value: User | null) {
-    this._user = value;
+    this.userSubject.next(value);
     if (value) {
       sessionStorage.setItem(this.USER_KEY, JSON.stringify(value));
     } else {
@@ -64,7 +68,7 @@ export class ApiService {
   }
 
   public isAdmin(): boolean {
-    return this._user?.role === 'Admin';
+    return this.user?.role === 'Admin';
   }
 
   public getAdminSection(): Observable<UserProfile[]> {
