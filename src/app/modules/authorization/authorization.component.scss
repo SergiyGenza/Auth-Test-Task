@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+form {
+  text-align: center;
+  width: 250px;
+}
+
+.btns-group {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.card {
+  justify-content: space-between;
+  min-height: 300px;
+  gap: 2rem;
+}

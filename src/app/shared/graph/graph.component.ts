@@ -10,7 +10,8 @@ import { ChartService } from 'src/app/common/services/chart.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GraphComponent implements OnChanges {
-  @Input() graphData: any;
+  @Input() graphData!: any;
+  title!: string;
   chart!: any;
 
   constructor(private chartService: ChartService) { }
@@ -20,9 +21,10 @@ export class GraphComponent implements OnChanges {
   }
 
   private createChart(): void {
+    this.title = this.graphData.title;
     if (this.chart) {
       this.chart.destroy();
     }
-    this.chart = new Chart("chart", this.chartService.createChart(this.graphData));
+    this.chart = new Chart("chart", this.chartService.createChart(this.graphData.data));
   }
 }

@@ -14,5 +14,4 @@ export class AdminDashboardComponent {
   constructor(private apiService: ApiService) {
     this.userProfiles = this.apiService.getAdminSection();
   }
-
 }

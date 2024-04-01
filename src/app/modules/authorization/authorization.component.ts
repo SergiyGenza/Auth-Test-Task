@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class AuthorizationComponent implements OnDestroy {
   subscription!: Subscription;
+  hint: boolean = false;
 
   constructor(private authService: ApiService) { }
 
@@ -21,6 +22,10 @@ export class AuthorizationComponent implements OnDestroy {
 
   public onSubmit(tempForm: NgForm): void {
     this.subscription = this.authService.login(tempForm.value.email, tempForm.value.password).subscribe();
+  }
+
+  public onHintShow(): void {
+    this.hint = !this.hint;
   }
 
   user = 'user@deepersignals.com'

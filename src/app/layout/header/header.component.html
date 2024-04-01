@@ -1,0 +1,7 @@
+<div class="header-wrapper">
+  <h2>{{url | title}}</h2>
+  <div class="btns-group">
+    <button type="button" class="btn btn-success" *ngIf="isAdmin" routerLink="dashboard/adminpanel">Admin Section</button>
+    <button type="button" class="btn btn-danger" (click)="onSignOut()">Sign Out</button>
+  </div>
+</div>
