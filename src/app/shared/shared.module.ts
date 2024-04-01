@@ -8,14 +8,14 @@ import { CardComponent } from './card/card.component';
 @NgModule({
   declarations: [
     GraphComponent,
-    CardComponent
+    CardComponent,
   ],
   imports: [
     CommonModule
   ],
   exports: [
     GraphComponent,
-    CardComponent
+    CardComponent,
   ]
 })
 export class SharedModule { }

@@ -1,3 +1,7 @@
 <div class="chart-container">
-  <canvas id="chart">{{ chart }}</canvas>
+  <h3>{{title}}</h3>
+  <h5 *ngIf="isError">
+    Error fetching graph data
+    </h5>
+    <canvas id="chart">{{ chart }}</canvas>
 </div>

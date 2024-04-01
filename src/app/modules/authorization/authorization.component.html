@@ -1,15 +1,19 @@
-<form name="login" #tempForm="ngForm" (ngSubmit)="onSubmit(tempForm)">
-  <div class="">
-    <input name="email" type="email" ngModel required>
-    <label for="">Email</label>
-  </div>
-  <div class="">
-    <input name="password" type="password" ngModel required>
-    <label for="password">pass</label>
-  </div>
-  <button type="submit">Log in</button>
-</form>
+<div class="wrapper">
+  <div class="card">
+    <h2>Login</h2>
+    <form name="login" #tempForm="ngForm" (ngSubmit)="onSubmit(tempForm)">
+      <input type="email" name="email" class="form-control" placeholder="Email" ngModel required>
+      <input type="password" name="password" class="form-control" placeholder="Email" ngModel required>
+      <div class="btns-group">
+        <button type="submit" class="btn btn-success">Log in</button>
+        <button type="button" class="btn btn-light" (click)="onHintShow()">hint</button>
+      </div>
+    </form>
 
-<p>{{user}}</p>
-<p>{{admin}}</p>
-<p>{{pass}}</p>
+    <div class="hint" *ngIf="hint">
+      <p>{{user}}</p>
+      <p>{{admin}}</p>
+      <p>{{pass}}</p>
+    </div>
+  </div>
+</div>

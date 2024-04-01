@@ -11,11 +11,9 @@ export class DashboardComponent implements OnDestroy {
   data: Observable<any>
   graphData!: any;
   subscription!: Subscription | undefined;
-  isAdmin: boolean;
 
   constructor(private apiService: ApiService) {
     this.data = apiService.getDashboard();
-    this.isAdmin = apiService.isAdmin();
   }
 
   ngOnDestroy(): void {
@@ -24,12 +22,23 @@ export class DashboardComponent implements OnDestroy {
     }
   }
 
-  public getGraph(id: number): void {
+  public getDataForGraph(id: number, title: string): void {
     this.subscription = this.apiService.getUsersAssessmentGraph(id)
-      .subscribe(res => this.graphData = res);
-  }
-
-  public onSignOut(): void {
-    this.apiService.signOut();
+      .subscribe({
+        next: (res) => {
+          this.graphData = {
+            data: res,
+            title: title
+          };
+        },
+        error: (error) => {
+          console.error('Error fetching graph data', error);
+          this.graphData = {
+            data: '',
+            error: 'Error fetching graph data',
+            title: title
+          }
+        }
+      });
   }
 }

@@ -1,5 +1,22 @@
-<h2>Admin Dashboard</h2>
-
-<div class="card-list" *ngIf="userProfiles | async let data">
-  <app-card *ngFor="let user of data" [user]="user"></app-card>
-</div>
+<table class="table table-striped" *ngIf="userProfiles | async let users">
+  <thead>
+    <tr>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Date of birth</th>
+      <th scope="col">Education</th>
+      <th scope="col">Position</th>
+      <th scope="col">Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.name}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.dateOfBirth}}</td>
+      <td>{{user.education}}</td>
+      <td>{{user.position}}</td>
+      <td>{{user.role}}</td>
+    </tr>
+  </tbody>
+</table>
