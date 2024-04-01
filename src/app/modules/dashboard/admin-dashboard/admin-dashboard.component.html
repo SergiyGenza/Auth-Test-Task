@@ -1,0 +1,5 @@
+<h2>Admin Dashboard</h2>
+
+<div class="card-list" *ngIf="userProfiles | async let data">
+  <app-card *ngFor="let user of data" [user]="user"></app-card>
+</div>

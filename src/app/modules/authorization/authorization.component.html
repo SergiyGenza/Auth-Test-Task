@@ -1,0 +1,15 @@
+<form name="login" #tempForm="ngForm" (ngSubmit)="onSubmit(tempForm)">
+  <div class="">
+    <input name="email" type="email" ngModel required>
+    <label for="">Email</label>
+  </div>
+  <div class="">
+    <input name="password" type="password" ngModel required>
+    <label for="password">pass</label>
+  </div>
+  <button type="submit">Log in</button>
+</form>
+
+<p>{{user}}</p>
+<p>{{admin}}</p>
+<p>{{pass}}</p>
