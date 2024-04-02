@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserProfile } from 'src/app/common/models/usersProfile.model';
 import { ApiService } from 'src/app/common/services/api.service';
 

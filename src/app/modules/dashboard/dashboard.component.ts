@@ -33,11 +33,6 @@ export class DashboardComponent implements OnDestroy {
         },
         error: (error) => {
           console.error('Error fetching graph data', error);
-          this.graphData = {
-            data: '',
-            error: 'Error fetching graph data',
-            title: title
-          }
         }
       });
   }
